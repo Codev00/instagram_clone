@@ -6,6 +6,7 @@ import { useLayoutEffect } from "react";
 import { currentTheme, darkMode, lightMode } from "@/utils/datatheme";
 import { useDispatch } from "react-redux";
 import { changeTheme } from "@/redux/theme.slice";
+import { useState } from "react";
 
 export default function Home() {
    const dispatch = useDispatch();
@@ -13,9 +14,11 @@ export default function Home() {
       dispatch(changeTheme(currentTheme()));
    }, []);
    return (
-      <div className="flex flex-row gap-10 ">
-         <HomePage />
-         <Rightbar />
-      </div>
+      <>
+         <div className="flex flex-row gap-10 ">
+            <HomePage />
+            <Rightbar />
+         </div>
+      </>
    );
 }

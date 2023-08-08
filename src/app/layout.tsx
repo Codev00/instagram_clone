@@ -1,9 +1,8 @@
-"use client";
 import Sidebar from "@/components/Sidebar";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { useState } from "react";
+
 import { Providers } from "@/redux/Providers";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,18 +13,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
    children,
-   theme,
 }: {
    children: React.ReactNode;
-   theme: string;
 }) {
-   const [tabActive, setTabActive] = useState<string>("");
-
    return (
       <html lang="en" data-theme="">
          <body className={`flex flex-row ${inter.className} scrollbar-hide`}>
             <Providers>
-               <Sidebar tabActive={tabActive} onClickTab={setTabActive} />
+               <Sidebar />
                <main className="w-full flex min-h-screen flex-col items-center justify-between m-0 xl:m-auto">
                   {children}
                </main>

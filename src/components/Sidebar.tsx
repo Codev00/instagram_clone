@@ -3,10 +3,12 @@ import React from "react";
 import Image from "next/image";
 import NavItem from "./NavItem";
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "@/redux/store";
+import { RootState, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { changeTheme } from "@/redux/theme.slice";
 import { currentTheme, darkMode, lightMode } from "@/utils/datatheme";
+import { useSelector } from "react-redux";
+import { setTabActive } from "@/redux/home.slice";
 
 interface NavType {
    icon: JSX.Element;
@@ -15,15 +17,10 @@ interface NavType {
    title: string;
    onClick: () => void;
 }
-const Sidebar = ({
-   tabActive,
-   onClickTab,
-}: {
-   tabActive: string;
-   onClickTab: (s: string) => void;
-}) => {
+const Sidebar = () => {
    const router = useRouter();
    const theme = useAppSelector((state) => state.theme.theme);
+   const tabActive = useSelector((state: RootState) => state.home.tabActive);
    const dispatch = useDispatch();
    const sidebar: NavType[] = [
       {
@@ -33,7 +30,7 @@ const Sidebar = ({
          isActive: tabActive === "",
          onClick: () => {
             router.push("/");
-            onClickTab("");
+            dispatch(setTabActive(""));
          },
       },
       {
@@ -76,7 +73,7 @@ const Sidebar = ({
          title: "Messages",
          onClick: () => {
             router.push("/messages");
-            onClickTab("messenges");
+            dispatch(setTabActive("/messages"));
          },
       },
       {
