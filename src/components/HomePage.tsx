@@ -23,6 +23,7 @@ const Home = () => {
    const { events } = useDraggable(ref);
    return (
       <div className="w-[630px] h-screen overflow-auto scrollbar-hide">
+         <div className="h-[8px]"></div>
          <div
             className="w-full flex flex-row items-center gap-3 py-4 mt-4 whitespace-nowrap overflow-x-hidden"
             {...events}

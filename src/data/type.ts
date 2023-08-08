@@ -2,6 +2,7 @@ export type User = {
    id: number;
    name: string;
    avatar: string;
+   urlName: string;
 };
 
 export type Post = {

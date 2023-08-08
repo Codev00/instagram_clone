@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/redux/store";
 import React from "react";
 
 const NavItem = ({
@@ -13,9 +14,12 @@ const NavItem = ({
    title: string;
    onClick: () => void;
 }) => {
+   const theme = useAppSelector((state) => state.theme.theme);
    return (
       <div
-         className={`cursor-pointer flex items-center  flex-row my-[4px] p-3 text-2xl hover:bg-[#e1e1e1] rounded-xl transition-all peer`}
+         className={`cursor-pointer flex items-center  flex-row my-[4px] p-3 text-2xl ${
+            theme === "light" ? "hover:bg-[#e1e1e1]" : "hover:bg-slate-800"
+         } rounded-xl transition-all peer`}
          onClick={onClick}
       >
          {isActive ? activeIcon : icon}

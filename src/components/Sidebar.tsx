@@ -3,6 +3,10 @@ import React from "react";
 import Image from "next/image";
 import NavItem from "./NavItem";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import { changeTheme } from "@/redux/theme.slice";
+import { currentTheme, darkMode, lightMode } from "@/utils/datatheme";
 
 interface NavType {
    icon: JSX.Element;
@@ -19,6 +23,8 @@ const Sidebar = ({
    onClickTab: (s: string) => void;
 }) => {
    const router = useRouter();
+   const theme = useAppSelector((state) => state.theme.theme);
+   const dispatch = useDispatch();
    const sidebar: NavType[] = [
       {
          icon: <i className="fi fi-rr-home flex items-center "></i>,
@@ -100,7 +106,7 @@ const Sidebar = ({
                width={150}
                height={150}
                alt="logo"
-               className=""
+               className={`${theme === "dark" && "invert"}`}
             />
          </div>
          <div className="flex flex-col w-full h-full justify-between transition ease-in-out duration-1000">
@@ -141,17 +147,61 @@ const Sidebar = ({
                   }}
                />
             </div>
-            <NavItem
-               icon={<i className="fi fi-sr-menu-burger flex items-center"></i>}
-               activeIcon={
-                  <i className="fi fi-br-menu-burger flex items-center"></i>
-               }
-               isActive={false}
-               title="More"
-               onClick={() => {
-                  console.log("More");
-               }}
-            />
+
+            <div className="dropdown dropdown-top dropdown-hover">
+               <div
+                  className={`cursor-pointer flex items-center  flex-row my-[4px] p-3 text-2xl ${
+                     theme === "light"
+                        ? "hover:bg-[#e1e1e1]"
+                        : "hover:bg-slate-800"
+                  } rounded-xl transition-all peer`}
+                  tabIndex={0}
+               >
+                  <i className="fi fi-sr-menu-burger flex items-center"></i>
+                  <p className={`text-base  pl-4 `}>More</p>
+               </div>
+
+               <div
+                  tabIndex={0}
+                  className={`dropdown-content h-[300px] z-[1] menu p-2 shadow ${
+                     theme === "dark" ? "bg-slate-700 " : "bg-slate-200"
+                  } rounded-box w-full flex flex-col justify-between`}
+               >
+                  <ul>
+                     <li
+                        className={`h-[46px] flex items-center justify-center text-lg font-bold  cursor-pointer ${
+                           theme === "dark"
+                              ? "hover:bg-slate-600 "
+                              : "hover:bg-slate-100"
+                        } rounded-box`}
+                        onClick={() => dispatch(changeTheme(darkMode()))}
+                     >
+                        Dark Mode <i className="fi fi-br-moon-stars"></i>
+                     </li>
+                     <li
+                        className={`h-[46px] flex items-center justify-center text-lg font-bold  cursor-pointer ${
+                           theme === "dark"
+                              ? "hover:bg-slate-600 "
+                              : "hover:bg-slate-100"
+                        } rounded-box`}
+                        onClick={() => dispatch(changeTheme(lightMode()))}
+                     >
+                        Light Mode <i className="fi fi-br-brightness"></i>
+                     </li>
+                  </ul>
+                  <div className="border-t border-slate-500 pt-1">
+                     <span
+                        className={`h-[46px] flex items-center justify-center text-lg font-bold  cursor-pointer ${
+                           theme === "dark"
+                              ? "hover:bg-slate-600 "
+                              : "hover:bg-slate-100"
+                        } rounded-box`}
+                     >
+                        Log out
+                     </span>
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
    );

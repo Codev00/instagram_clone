@@ -50,7 +50,7 @@ const Post = ({ post }: { post: Post }) => {
                className="fits-cover rounded-lg"
             />
          </div>
-         <div className="">
+         <div className="w-full">
             <div className="w-full flex flex-row items-center justify-between h-[46px]">
                <div className="flex flex-row items-center -translate-x-2">
                   {isLike == false ? (
@@ -77,7 +77,21 @@ const Post = ({ post }: { post: Post }) => {
                <span className="font-medium">{user?.name}: </span>{" "}
                <span>{post?.description}</span>
             </div>
-            <div>comments</div>
+            <div>
+               <span className="text-[14px] text-slate-600 cursor-pointer">
+                  See all comments...
+               </span>
+            </div>
+
+            <div className="relative flex flex-row items-center">
+               <textarea
+                  placeholder="Add comments"
+                  autoCorrect="off"
+                  autoComplete="off"
+                  className="textarea w-full p-0 min-h-[30px] border-none resize-none !h-[25px] max-h-[80px] focus:outline-none "
+               />
+               <i className="fi fi-rr-smile  "></i>
+            </div>
          </div>
       </div>
    );

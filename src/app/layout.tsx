@@ -14,16 +14,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
    children,
+   theme,
 }: {
    children: React.ReactNode;
+   theme: string;
 }) {
    const [tabActive, setTabActive] = useState<string>("");
+
    return (
-      <html lang="en" data-theme={"light"}>
+      <html lang="en" data-theme="">
          <body className={`flex flex-row ${inter.className} scrollbar-hide`}>
             <Providers>
                <Sidebar tabActive={tabActive} onClickTab={setTabActive} />
-               <main className="w-full flex min-h-screen flex-col items-center justify-between mx-[131px]">
+               <main className="w-full flex min-h-screen flex-col items-center justify-between m-0 xl:m-auto">
                   {children}
                </main>
             </Providers>
